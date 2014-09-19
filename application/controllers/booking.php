@@ -4,8 +4,6 @@
 
 class Booking extends CI_Controller {
 
-
-
 	/**
 
 	 * Index Page for this controller.
@@ -48,9 +46,6 @@ class Booking extends CI_Controller {
 		$this->load->helper('inflector');
 
 	}
-
-
-
 	public function index()
 
 	{
@@ -68,33 +63,18 @@ class Booking extends CI_Controller {
 	public function index2()
 
 	{
-
-		
-
 			$this->load->view('booking/index2');
-
-
-
 	}
-
-
-
-
 
 	public function index3()
 
 	{
 
-		
-
-			$this->load->view('booking/index3');
+		$this->load->view('booking/index3');
 
 
 
 	}
-
-
-
 	public function index4()
 
 	{
