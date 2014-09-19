@@ -43,7 +43,7 @@
 	<div class="container">
 		<br>
 		<div class="row clearfix">
-			<div class="col-md-5 column">
+			<div class="col-md-6 column">
 				<div class="panel panel-primary">
 					<div class="panel-heading">Datepicker</div>
 					<div class="panel-body">
