@@ -127,7 +127,7 @@
 							</div>
 
 						</div>
-							<div class="calender"></div>
+							<div class="date"></div>
 
 					</div>
 
@@ -175,7 +175,7 @@
 
 		<script>
 
-			$('.calender').datepicker({
+			$('.date').datepicker({
 
     			todayHighlight: true
 
