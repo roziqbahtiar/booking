@@ -47,12 +47,10 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">Datepicker</div>
 					<div class="panel-body">
-
 						<div class="row">
 							<div class="col-md-6 column col-md-offset-1">
 								<div class="date"></div>
 							</div>
-
 							<div class="col-md-4 column">
 								<select class="form-control block">
 									<option>1 Person</option>
