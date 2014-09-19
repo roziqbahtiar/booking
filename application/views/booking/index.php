@@ -49,7 +49,9 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-6 column col-md-offset-1">
-								<div class="date"></div>
+								<div class="date" >
+									
+								</div>
 							</div>
 							<div class="col-md-4 column">
 								<select class="form-control block">
@@ -68,6 +70,9 @@
 									<option>Lunch</option>
 									<option>Dinner</option>
 								</select>
+							</div>
+							<div class="col-md-4 column">
+								<span class="disp"></span>
 							</div>
 						</div>
 							
@@ -90,8 +95,14 @@
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 		<script>
-			$('.date').datepicker({
-    			todayHighlight: true
+			$('.date').datepicker({ 
+				todayHighlight: true,
+				beforeShowDay: function (date){
+					$('.date').click(function  () {
+						$(".disp").html(date);
+					});
+					
+				}
 			});
 		</script>
 	</body>
