@@ -68,33 +68,18 @@ class Booking extends CI_Controller {
 	public function index2()
 
 	{
-
-		
-
 			$this->load->view('booking/index2');
-
-
-
 	}
-
-
-
-
 
 	public function index3()
 
 	{
 
-		
-
-			$this->load->view('booking/index3');
+		$this->load->view('booking/index3');
 
 
 
 	}
-
-
-
 	public function index4()
 
 	{
