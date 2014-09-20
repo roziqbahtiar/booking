@@ -72,7 +72,7 @@
 								</select>
 							</div>
 							<div class="col-md-4 column">
-								<span class="disp"></span>
+								<div class="disp"></div>
 							</div>
 						</div>
 							
@@ -96,13 +96,10 @@
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 		<script>
 			$('.date').datepicker({ 
-				todayHighlight: true,
-				beforeShowDay: function (date){
-					$('.date').click(function  () {
-						$(".disp").html(date);
-					});
-					
-				}
+				todayHighlight: true
+			}).on('changeDate', function(e){ 
+   				$('.disp').html(e.format('yyyy-mm-dd'));// or use e.date manually  
+   				
 			});
 		</script>
 	</body>
