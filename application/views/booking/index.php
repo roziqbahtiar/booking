@@ -79,9 +79,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 column">
-				<div class="alert alert-warning" role="alert">Sorry, there isn’t a table matching your selection.
-					You can check availability by changing the date, party size or session.</div>
+				<div class="col-md-6 column" >
+					<div id="notif" class="alert alert-warning" role="alert" style="display:none;">Sorry, there isn’t a table matching your selection.
+						You can check availability by changing the date, party size or session.
+					</div>
 					<div class="panel panel-primary">
 						<div class="panel-heading">Select an option below:</div>
 						<div class="panel-body">
@@ -98,9 +99,43 @@
 			$('.date').datepicker({ 
 				todayHighlight: true
 			}).on('changeDate', function(e){ 
-   				$('.disp').html(e.format('yyyy-mm-dd'));// or use e.date manually  
-   				
+   				$('.disp').html(e.format('dd-M-yyyy') + "<br>"+e.format('dd-MM-yyyy'));// or use e.date manually  
+   				checkingDateEngage(e);
 			});
+
+			//kanggo ngecek wes di booking opo durung;
+			function checkingDateEngage(e){
+				//kanggo alamate jupuk data
+				//var validationURL = "http://demo.techarea.co.id/hsmserver/login.php?jsoncallback=?";
+				//kanggo argument seng di cek
+				//tanggal piro
+				//$date = e.date;
+				//paanggone
+				//$place = e.place;
+				//kanggo opo
+				//$purpose = e.purpose;
+				// $.getJSON(validationURL, {email:userdata ,password:passwordData, REGID:Reg_id}).done(function(ServerResponse) {
+    //             //alert(ServerResponse.message + "\nGenerated en: " + ServerResponse.minute + "\n" +ServerResponse.generator)
+    //             if(ServerResponse.validation == "ok"){
+    //             /// If the validation is successful, displays the "home" screen
+    //             $.mobile.changePage("#home");
+    //             // $("#userId").val(ServerResponse.refId);
+    //             saveUserData(ServerResponse.refId, userdata, passwordData);
+    //             hideicon();
+    //         }
+    //         else{
+    //             $.mobile.changePage("#initiation");
+    //                 $("#loseConn").fadeOut("fast");
+    //                 $("#fail").fadeOut("fast");
+    //                 $("#fail").fadeIn("slow");
+    //                 hideicon();
+
+    //             }
+    //         })
+    //             return false;
+             	$("#notif").fadeIn("slow");
+                $("#notif").fadeOut("slow");
+			}
 		</script>
 	</body>
 </html>
