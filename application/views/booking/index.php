@@ -72,9 +72,20 @@
 									<option value="malam">Dinner</option>
 								</select>
 							</div>
+
 							<div class="col-md-4 column">
 								<div class="disp"></div>
 							</div>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<div class="col-md-4 column">
+								<button type="button" class="btn btn-lg btn-primary col-md-offset-2">Booking</button>
+							</div>
+							
 						</div>
 							
 					</div>
