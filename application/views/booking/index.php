@@ -48,13 +48,7 @@
 					<div class="panel-heading">Datepicker</div>
 					<div class="panel-body">
 
-						<div class="row">
-							<div class="col-md-12 column">
-								<div id="notif" class="alert alert-warning" role="alert" style="display:none;">Sorry, there isn’t a table matching your selection.
-									You can check availability by changing the date, party size or session.
-								</div>
-							</div>
-						</div>
+						
 						<div class="row">
 							<div class="col-md-6 column col-md-offset-1">
 								<div class="date" >
@@ -92,7 +86,13 @@
 					</div>
 					
 				</div>
-
+				<div class="row">
+							<div class="col-md-12 column">
+								<div id="notif" class="alert alert-warning" role="alert" style="display:none;">Sorry, there isn’t a table matching your selection.
+									You can check availability by changing the date, party size or session.
+								</div>
+							</div>
+						</div>
 			</div>
 		</div>
 	</div>
