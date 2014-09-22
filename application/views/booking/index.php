@@ -82,7 +82,8 @@
 						<div class="form-group">
 							<button type="button" class="btn btn-lg btn-block btn-primary" disabled="disabled">Booking</button>
 						</div>
-						<div class="alert alert-warning" role="alert">Not Available</div>
+						<div id="success" class="alert alert-success" role="alert" style="display:none;"><span class="glyphicon glyphicon-ok"></span><strong> Available</strong></div>
+						<div id="fail" class="alert alert-warning" role="alert" style="display:none;"><span class="glyphicon glyphicon-remove"></span><strong> Not Available</strong></div>
 					</div>
 					
 				</div>
@@ -152,7 +153,11 @@
     //         })
     //             return false;
     $("#notif").fadeIn("slow");
-    $("#notif").fadeOut("slow");
+    $("#fail").fadeIn("slow");
+    //$("fail").fadeOut("slow");
+   // $("success").fadeIn("slow");
+    $("#success").fadeOut("slow");
+    //$("#notif").fadeOut("slow");
 }
 </script>
 </body>
