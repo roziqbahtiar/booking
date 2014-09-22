@@ -55,11 +55,11 @@
 							</div>
 							<div class="col-md-4 column">
 								<select class="form-control block">
-									<option>1 Person</option>
-									<option>2 Person</option>
-									<option>3 Person</option>
-									<option>4 Person</option>
-									<option>5 Person</option>
+									<option value="1">1 Person</option>
+									<option value="2">2 Person</option>
+									<option value="3">3 Person</option>
+									<option value="4">4 Person</option>
+									<option value="5">5 Person</option>
 								</select>
 							</div>
 							<br>
@@ -67,9 +67,9 @@
 							<br>
 							<div class="col-md-4 column">
 								<select class="form-control block">
-									<option>Breakfast</option>
-									<option>Lunch</option>
-									<option>Dinner</option>
+									<option value="pagi">Breakfast</option>
+									<option value="siang">Lunch</option>
+									<option value="malam">Dinner</option>
 								</select>
 							</div>
 							<div class="col-md-4 column">
