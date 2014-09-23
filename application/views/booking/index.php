@@ -35,6 +35,7 @@
     <link rel="shortcut icon" href="img/favicon.png">
 
     <script type="text/javascript" src="<?=base_url();?>asset/js/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="<?=base_url();?>asset/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?=base_url();?>asset/js/scripts.js"></script>
 
@@ -64,7 +65,7 @@
 							</center>
 						</div>
 						<div class="form-group">
-							<select class="form-control block">
+							<select id="sumPeople" class="form-control block">
 								<option value="1">1 Person</option>
 								<option value="2">2 Person</option>
 								<option value="3">3 Person</option>
@@ -73,14 +74,14 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<select class="form-control block">
+							<select id="purpose" class="form-control block">
 								<option value="pagi">Breakfast</option>
 								<option value="siang">Lunch</option>
 								<option value="malam">Dinner</option>
 							</select>
 						</div>
 						<div class="form-group">
-							<button type="button" class="btn btn-lg btn-block btn-primary" disabled="disabled">Booking</button>
+							<button id="forBook" type="button" class="btn btn-lg btn-block btn-primary" disabled="disabled">Booking</button>
 						</div>
 						<div id="success" class="alert alert-success" role="alert" style="display:none;"><span class="glyphicon glyphicon-ok"></span><strong> Available</strong></div>
 						<div id="fail" class="alert alert-warning" role="alert" style="display:none;"><span class="glyphicon glyphicon-remove"></span><strong> Not Available</strong></div>
@@ -110,55 +111,52 @@
 	</div>
 </div>
 </div>
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script>
 	$('.date').datepicker({ 
 		todayHighlight: true
 	}).on('changeDate', function(e){ 
-   				// $('.disp').html(e.format('dd-M-yyyy') + "<br>"+e.format('dd-MM-yyyy'));// or use e.date manually
-   				$('.disp').html(e.format('dd-MM-yyyy'));  
+   				var date = e.format('yyyy-mm-dd');
+
    				checkingDateEngage(e);
+   				//$('.disp').html(date);  
+
+   				
    			});
 
 			//kanggo ngecek wes di booking opo durung;
 			function checkingDateEngage(e){
 				//kanggo alamate jupuk data
-				//var validationURL = "http://demo.techarea.co.id/hsmserver/login.php?jsoncallback=?";
+				var validationURL = "http://localhost/bookingserver/insertdata.php?jsoncallback=?";
 				//kanggo argument seng di cek
 				//tanggal piro
-				//$date = e.date;
+				var date = e.format('yyyy-mm-dd');
 				//paanggone
-				//$place = e.place;
+				var people =  $('#sumPeople').val();
 				//kanggo opo
-				//$purpose = e.purpose;
-				// $.getJSON(validationURL, {email:userdata ,password:passwordData, REGID:Reg_id}).done(function(ServerResponse) {
-    //             //alert(ServerResponse.message + "\nGenerated en: " + ServerResponse.minute + "\n" +ServerResponse.generator)
-    //             if(ServerResponse.validation == "ok"){
-    //             /// If the validation is successful, displays the "home" screen
-    //             $.mobile.changePage("#home");
-    //             // $("#userId").val(ServerResponse.refId);
-    //             saveUserData(ServerResponse.refId, userdata, passwordData);
-    //             hideicon();
-    //         }
-    //         else{
-    //             $.mobile.changePage("#initiation");
-    //                 $("#loseConn").fadeOut("fast");
-    //                 $("#fail").fadeOut("fast");
-    //                 $("#fail").fadeIn("slow");
-    //                 hideicon();
+				var purpose = $('#purpose').val();
 
-    //             }
-    //         })
-    //             return false;
-    $("#notif").fadeIn("slow");
-    $("#fail").fadeIn("slow");
-    //$("fail").fadeOut("slow");
-   // $("success").fadeIn("slow");
-    $("#success").fadeOut("slow");
-    //$("#notif").fadeOut("slow");
-}
+				$.getJSON( 
+					validationURL, {tanggal:date ,jml_org:people, tujuan:purpose
+					}).done(function(ServerResponse) {
+	                
+	                 if(ServerResponse.stats){
+	                 	$("#forBook").attr('disabled');
+	                 	 $("#fail").fadeIn("slow");
+	                 	 $("#success").fadeOut("slow");
+	                 	 $("#notif").fadeIn("slow");
+	                 }
+		             else{
+		             	$("#forBook").removeAttr('disabled');
+		             	$("#success").fadeIn("slow");
+		             	$("#fail").fadeOut("slow");
+		             	$("#notif").fadeOut("slow");
+					}	
+				});
+					
+		}
 </script>
 </body>
 </html>
