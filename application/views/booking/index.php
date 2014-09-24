@@ -43,7 +43,7 @@
 <body>
 	<div class="container">
 		<br>
-		<div class="row clearfix">
+		<div class="row clearfix" id="checkTanggal">
 			<div class="col-md-6 column">
 				<div class="panel panel-primary">
 					<div class="panel-heading">Datepicker</div>
@@ -110,6 +110,33 @@
 		</div>
 	</div>
 </div>
+
+<!-- milih jam -->
+<div class="row clearfix" id="milihJam" style="display:none;">
+			<div class="col-md-12 column">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-md-1 column">
+								<button id="forBack1" type="button" class="btn btn-sm btn-block btn-primary" >Back</button>
+							</div>
+							
+							<div class="col-md-5 column">Select a dining time:</div>
+						</div>
+					</div>
+					
+					<div class="panel-body">
+						<button type="button" class="btn btn-md btn-primary">19.00</button>
+						<button type="button" class="btn btn-md btn-primary col-md-offset-1" disabled="disabled">21.00</button>
+						<button type="button" class="btn btn-md btn-primary col-md-offset-1">22.00</button>
+						<button type="button" class="btn btn-md btn-primary col-md-offset-1" disabled="disabled">23.00</button>
+						<button type="button" class="btn btn-md btn-primary col-md-offset-1">24.00</button>
+						<br><br>
+						<b><span class="glyphicon glyphicon-star"></span>  All 7pm tables are required back at 9pm. Due to a planning restriction, all customers must vacate the restaurant by:Monday - Thursday 11:00pm, Friday - Saturday 11:20pm.</b>
+					</div>
+				</div>
+			</div>
+		</div>
 </div>
 
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -126,6 +153,16 @@
    				
    			});
 
+			$("#forBook").click(function(){
+				var validationURL = "http://labs.techarea.co.id/bookingserver/insertdata.php?jsoncallback=?";
+				$("#checkTanggal").hide();
+				$("#milihJam").show();
+			});
+			$("#forBack1").click(function(){
+				
+				$("#checkTanggal").show();
+				$("#milihJam").hide();
+			});
 			//kanggo ngecek wes di booking opo durung;
 			function checkingDateEngage(e){
 				//kanggo alamate jupuk data
