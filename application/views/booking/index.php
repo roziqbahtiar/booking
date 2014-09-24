@@ -129,7 +129,7 @@
 			//kanggo ngecek wes di booking opo durung;
 			function checkingDateEngage(e){
 				//kanggo alamate jupuk data
-				var validationURL = "http://localhost/bookingserver/insertdata.php?jsoncallback=?";
+				var validationURL = "http://labs.techarea.co.id/bookingserver/insertdata.php?jsoncallback=?";
 				//kanggo argument seng di cek
 				//tanggal piro
 				var date = e.format('yyyy-mm-dd');
