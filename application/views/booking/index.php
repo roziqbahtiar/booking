@@ -125,14 +125,9 @@
 						</div>
 					</div>
 					
-					<div class="panel-body">
-						<button type="button" class="btn btn-md btn-primary">19.00</button>
-						<button type="button" class="btn btn-md btn-primary col-md-offset-1" disabled="disabled">21.00</button>
-						<button type="button" class="btn btn-md btn-primary col-md-offset-1">22.00</button>
-						<button type="button" class="btn btn-md btn-primary col-md-offset-1" disabled="disabled">23.00</button>
-						<button type="button" class="btn btn-md btn-primary col-md-offset-1">24.00</button>
-						<br><br>
-						<b><span class="glyphicon glyphicon-star"></span>  All 7pm tables are required back at 9pm. Due to a planning restriction, all customers must vacate the restaurant by:Monday - Thursday 11:00pm, Friday - Saturday 11:20pm.</b>
+					<div class="panel-body" id="timePanel">
+						
+					
 					</div>
 				</div>
 			</div>
@@ -142,58 +137,132 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script>
+
+	$(document ).ready(function () {
+		 console.log( "ready!" );
+	});
 	$('.date').datepicker({ 
 		todayHighlight: true
 	}).on('changeDate', function(e){ 
-   				var date = e.format('yyyy-mm-dd');
+			var date = e.format('yyyy-mm-dd');
 
-   				checkingDateEngage(e);
-   				//$('.disp').html(date);  
+			checkingDateEngage(date);
+			//$('.disp').html(date);  
+		});
 
-   				
-   			});
+	$("#forBook").click(function(){
+		var validationURL = "http://labs.techarea.co.id/bookingserver/insertdata.php?jsoncallback=?";
+		$("#checkTanggal").hide("slow");
+		$("#milihJam").show("slow");
+	});
+	$("#forBack1").click(function(){
+		
+		$("#checkTanggal").show("slow");
+		$("#milihJam").hide("slow");
+	});
+	//kanggo ngecek wes di booking opo durung;
+	function checkingDateEngage(e){
+		//kanggo alamate jupuk data
+		var validationURL = "http://labs.techarea.co.id/bookingserver/insertdata.php?jsoncallback=?";
+		//kanggo argument seng di cek
+		//tanggal piro
+		var date = e;
+		//paanggone
+		var people =  $('#sumPeople').val();
+		//kanggo opo
+		var purpose = $('#purpose').val();
 
-			$("#forBook").click(function(){
-				var validationURL = "http://labs.techarea.co.id/bookingserver/insertdata.php?jsoncallback=?";
-				$("#checkTanggal").hide();
-				$("#milihJam").show();
+		$.getJSON( 
+			validationURL, {tanggal:date ,jml_org:people, tujuan:purpose
+			}).done(function(ServerResponse) {
+
+				if(ServerResponse.stats){
+					$("#forBook").attr('disabled');
+					$("#fail").fadeIn("slow");
+					$("#success").fadeOut("slow");
+					$("#notif").fadeIn("slow");
+				}
+				else{
+					timeAvailable();
+					$("#forBook").removeAttr('disabled');
+					$("#success").fadeIn("slow");
+					$("#fail").fadeOut("slow");
+					$("#notif").fadeOut("slow");
+				}	
 			});
-			$("#forBack1").click(function(){
-				
-				$("#checkTanggal").show();
-				$("#milihJam").hide();
-			});
-			//kanggo ngecek wes di booking opo durung;
-			function checkingDateEngage(e){
-				//kanggo alamate jupuk data
-				var validationURL = "http://labs.techarea.co.id/bookingserver/insertdata.php?jsoncallback=?";
-				//kanggo argument seng di cek
-				//tanggal piro
-				var date = e.format('yyyy-mm-dd');
-				//paanggone
-				var people =  $('#sumPeople').val();
-				//kanggo opo
-				var purpose = $('#purpose').val();
-
-				$.getJSON( 
-					validationURL, {tanggal:date ,jml_org:people, tujuan:purpose
-					}).done(function(ServerResponse) {
-	                
-	                 if(ServerResponse.stats){
-	                 	$("#forBook").attr('disabled');
-	                 	 $("#fail").fadeIn("slow");
-	                 	 $("#success").fadeOut("slow");
-	                 	 $("#notif").fadeIn("slow");
-	                 }
-		             else{
-		             	$("#forBook").removeAttr('disabled');
-		             	$("#success").fadeIn("slow");
-		             	$("#fail").fadeOut("slow");
-		             	$("#notif").fadeOut("slow");
-					}	
-				});
 					
 		}
+
+		//fungsi kanggo  reuquest
+		function insertRequest (data) {
+			// body...
+		}
+
+		//fungsi kanggo noto jam
+
+		function timeAvailable(){
+			var htmlValue ='';
+			for (var i = 1; i <= 15; i++) {
+				var time = (i+8);
+				htmlValue = htmlValue+'<span style="margin-left:10px;"></span><button id="btnJam'+time+'"type="button" class="btn btn-md btn-primary" value="'+time+'">'+time+'.00</button>';
+			};
+			$('#timePanel').html(htmlValue+'<br><br><b><span class="glyphicon glyphicon-star"></span>  All 7pm tables are required back at 9pm. Due to a planning restriction, all customers must vacate the restaurant by:Monday - Thursday 11:00pm, Friday - Saturday 11:20pm.</b>');
+		}
+
+		$('#btnJam9').click(function  (argument) {
+			//kanggo alamate jupuk data
+			var validationURL = "http://labs.techarea.co.id/bookingserver/insertdata.php?jsoncallback=?";
+			//kanggo argument seng di cek
+			//tanggal piro
+			var date = e;
+			//paanggone
+			var people =  $('#sumPeople').val();
+			//kanggo opo
+			var purpose = $('#purpose').val();
+		})
+		$('#btnJam10').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam11').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam12').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam13').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam14').click(function  (argument) {
+			// body...
+		})
+
+		$('#btnJam15').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam16').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam17').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam18').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam19').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam20').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam21').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam22').click(function  (argument) {
+			// body...
+		})
+		$('#btnJam23').click(function  (argument) {
+			// body...
+		})
 </script>
 </body>
 </html>
