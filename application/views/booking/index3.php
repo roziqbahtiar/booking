@@ -108,7 +108,7 @@
     						notEmpty: {
     							message: 'The phone number is required'
     						},
-    						phone: {
+    						integer: {
     							message: 'The phone number is not valid'
     						}
     					}
