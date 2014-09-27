@@ -219,6 +219,7 @@
 			var people =  $('#sumPeople').val();
 			//kanggo opo
 			var purpose = $('#purpose').val();
+			
 		})
 		$('#btnJam10').click(function  (argument) {
 			// body...
