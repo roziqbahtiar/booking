@@ -65,7 +65,7 @@
 							</center>
 						</div>
 						<div class="form-group">
-							<select id="sumPeople" class="form-control block">
+							<select id="sumPeople" class="form-control block" onchange="checkingDateEngage(date)">
 								<option value="1">1 Person</option>
 								<option value="2">2 Person</option>
 								<option value="3">3 Person</option>
@@ -74,7 +74,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<select id="purpose" class="form-control block">
+							<select id="purpose" class="form-control block" onchange="checkingDateEngage(date)">
 								<option value="pagi">Breakfast</option>
 								<option value="siang">Lunch</option>
 								<option value="malam">Dinner</option>
@@ -125,27 +125,79 @@
 						</div>
 					</div>
 					
-					<div class="panel-body" id="timePanel">
-						
-					
+					<div class="panel-body" id="timePanel1" style="display:none;">
+						<button id="btnJam8"type="button" class="btn btn-md btn-primary" value="08">08.00</button>
+						<button id="btnJam9"type="button" class="btn btn-md btn-primary" value="09">09.00</button>
+						<button id="btnJam10"type="button" class="btn btn-md btn-primary" value="10">10.00</button>
+						<button id="btnJam11"type="button" class="btn btn-md btn-primary" value="11">11.00</button>
+						<button id="btnJam12"type="button" class="btn btn-md btn-primary" value="12">12.00</button>
+					</div>
+					<div class="panel-body" id="timePanel2" style="display:none;">
+						<button id="btnJam13"type="button" class="btn btn-md btn-primary" value="13">13.00</button>
+						<button id="btnJam14"type="button" class="btn btn-md btn-primary" value="14">14.00</button>
+						<button id="btnJam15"type="button" class="btn btn-md btn-primary" value="15">15.00</button>
+						<button id="btnJam16"type="button" class="btn btn-md btn-primary" value="16">16.00</button>
+						<button id="btnJam17"type="button" class="btn btn-md btn-primary" value="17">17.00</button>
+					</div>
+					<div class="panel-body" id="timePanel3" style="display:none;">
+						<button id="btnJam18"type="button" class="btn btn-md btn-primary" value="18">18.00</button>
+						<button id="btnJam19"type="button" class="btn btn-md btn-primary" value="19">19.00</button>
+						<button id="btnJam20"type="button" class="btn btn-md btn-primary" value="20">20.00</button>
+						<button id="btnJam21"type="button" class="btn btn-md btn-primary" value="21">21.00</button>
+						<button id="btnJam22"type="button" class="btn btn-md btn-primary" value="22">22.00</button>
+
 					</div>
 				</div>
 			</div>
 		</div>
+	<div class="col-md-12 column" id="detailsContact" style="display:none;">
+				<div class="panel panel-primary">
+					<div class="panel-heading"><span class="glyphicon glyphicon-user"></span> Your contact details</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6 column">
+								<form id="profileForm">
+									<div class="form-group">
+										<label>First name</label>
+										<input type="text" class="form-control" name="firstname" />
+									</div>
+									<div class="form-group">
+										<label>Last name</label>
+										<input type="text" class="form-control" name="lastname" />
+									</div>
+									<div class="form-group">
+										<label>Email address</label>
+										<input type="text" class="form-control" name="email" />
+									</div>
+									<div class="form-group">
+										<label>Phone number</label>
+										<input type="text" class="form-control" name="phone" />
+									</div>
+									<button type="submit" value="submit" class="btn btn-lg btn-block btn-primary">Submit</button>
+								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 column">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 </div>
+
 
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 <script>
-
+	var date;
 	$(document ).ready(function () {
 		 console.log( "ready!" );
 	});
 	$('.date').datepicker({ 
 		todayHighlight: true
 	}).on('changeDate', function(e){ 
-			var date = e.format('yyyy-mm-dd');
-
+			date = e.format('yyyy-mm-dd');
 			checkingDateEngage(date);
 			//$('.disp').html(date);  
 		});
@@ -169,9 +221,8 @@
 		var date = e;
 		//paanggone
 		var people =  $('#sumPeople').val();
-		//kanggo opo
-		var purpose = $('#purpose').val();
 
+		var purpose = $('#purpose').val();
 		$.getJSON( 
 			validationURL, {tanggal:date ,jml_org:people, tujuan:purpose
 			}).done(function(ServerResponse) {
@@ -183,86 +234,178 @@
 					$("#notif").fadeIn("slow");
 				}
 				else{
-					timeAvailable();
+					
 					$("#forBook").removeAttr('disabled');
 					$("#success").fadeIn("slow");
 					$("#fail").fadeOut("slow");
 					$("#notif").fadeOut("slow");
+					checkTimeline();
 				}	
 			});
 					
 		}
+	function checkTimeline(){
+		var purpose = $('#purpose').val();
+		if (purpose == 'pagi') { 
+			$("#timePanel1").fadeIn("slow"); 
+			$("#timePanel2").fadeOut("slow");
+			$("#timePanel3").fadeOut("slow");
+		} 
+		else if (purpose == 'siang') { 
+			$("#timePanel1").fadeOut("slow"); 
+			$("#timePanel2").fadeIn("slow");
+			$("#timePanel3").fadeOut("slow");
+		} 
+		else{ 
+			$("#timePanel1").fadeOut("slow"); 
+			$("#timePanel2").fadeOut("slow");
+			$("#timePanel3").fadeIn("slow");
+		}
 
+	}
 		//fungsi kanggo  reuquest
 		function insertRequest (data) {
-			// body...
-		}
-
-		//fungsi kanggo noto jam
-
-		function timeAvailable(){
-			var htmlValue ='';
-			for (var i = 1; i <= 15; i++) {
-				var time = (i+8);
-				htmlValue = htmlValue+'<span style="margin-left:10px;"></span><button id="btnJam'+time+'"type="button" class="btn btn-md btn-primary" value="'+time+'">'+time+'.00</button>';
-			};
-			$('#timePanel').html(htmlValue+'<br><br><b><span class="glyphicon glyphicon-star"></span>  All 7pm tables are required back at 9pm. Due to a planning restriction, all customers must vacate the restaurant by:Monday - Thursday 11:00pm, Friday - Saturday 11:20pm.</b>');
-		}
-
-		$('#btnJam9').click(function  (argument) {
-			//kanggo alamate jupuk data
-			var validationURL = "http://labs.techarea.co.id/bookingserver/insertdata.php?jsoncallback=?";
-			//kanggo argument seng di cek
-			//tanggal piro
-			var date = e;
-			//paanggone
-			var people =  $('#sumPeople').val();
-			//kanggo opo
-			var purpose = $('#purpose').val();
 			
+		}
+
+	function closeTimePanel(a){
+		if (a == 'pagi') { 
+			$("#timePanel1").fadeOut("slow"); 
+			$("#timePanel2").fadeOut("slow");
+			$("#timePanel3").fadeOut("slow");
+		} 
+		else if (a == 'siang') { 
+			$("#timePanel1").fadeOut("slow"); 
+			$("#timePanel2").fadeOut("slow");
+			$("#timePanel3").fadeOut("slow");
+		} 
+		else{ 
+			$("#timePanel1").fadeOut("slow"); 
+			$("#timePanel2").fadeOut("slow");
+			$("#timePanel3").fadeOut("slow");
+		}
+	}
+		$('#btnJam8').click(function  (a) {
+			
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 8!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
+		})
+		$('#btnJam9').click(function  (argument) {
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 9!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
+
 		})
 		$('#btnJam10').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 10!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
+
 		})
 		$('#btnJam11').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 11!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
+
 		})
 		$('#btnJam12').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 12!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
+
 		})
 		$('#btnJam13').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 13!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
+
 		})
 		$('#btnJam14').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 14!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
+
 		})
 
 		$('#btnJam15').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 15!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
+
 		})
 		$('#btnJam16').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 16!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
+
 		})
 		$('#btnJam17').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 17!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
 		})
 		$('#btnJam18').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 18!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
 		})
 		$('#btnJam19').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 19!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
 		})
 		$('#btnJam20').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 20!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
 		})
 		$('#btnJam21').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 21!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
 		})
 		$('#btnJam22').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 22!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
 		})
 		$('#btnJam23').click(function  (argument) {
-			// body...
+			var val = $("#purpose").val();
+			var person = $("#sumPeople").val();
+			console.log( "jam 23!" +val+person);
+			$("#detailsContact").fadeIn("slow");
+			closeTimePanel(val);
 		})
 </script>
 </body>
