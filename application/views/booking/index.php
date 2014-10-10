@@ -152,7 +152,15 @@
 		</div>
 	<div class="col-md-12 column" id="detailsContact" style="display:none;">
 				<div class="panel panel-primary">
-					<div class="panel-heading"><span class="glyphicon glyphicon-user"></span> Your contact details</div>
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-md-1 column">
+								<button id="forBack2" type="button" class="btn btn-sm btn-block btn-primary" >Back</button>
+							</div>
+							
+							<div class="col-md-5 column"><span class="glyphicon glyphicon-user"></span> Your contact details</div>
+						</div>
+					</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-6 column">
@@ -189,10 +197,56 @@
 
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
 <script>
+ //========================
 	var date;
 	$(document ).ready(function () {
 		 console.log( "ready!" );
+		 $('#profileForm').bootstrapValidator({
+    			feedbackIcons: {
+    				valid: 'glyphicon glyphicon-ok',
+    				invalid: 'glyphicon glyphicon-remove',
+    				validating: 'glyphicon glyphicon-refresh'
+    			},
+    			fields: {
+    				firstname: {
+    					validators: {
+    						notEmpty: {
+    							message: 'The First name address is required'
+    						}
+    					}
+    				},
+    				lastname: {
+    					validators: {
+    						notEmpty: {
+    							message: 'The Last name address is required'
+    						}
+    					}
+    				},
+    				email: {
+    					validators: {
+    						notEmpty: {
+    							message: 'The email address is required'
+    						},
+    						emailAddress: {
+    							message: 'The email address is not valid'
+    						}
+    					}
+    				},
+    				phone: {
+    					validators: {
+    						notEmpty: {
+    							message: 'The phone number is required'
+    						},
+    						integer: {
+    							message: 'The phone number is not valid'
+    						}
+    					}
+    				}
+    			}
+    		});
 	});
 	$('.date').datepicker({ 
 		todayHighlight: true
@@ -205,12 +259,21 @@
 	$("#forBook").click(function(){
 		var validationURL = "http://labs.techarea.co.id/bookingserver/insertdata.php?jsoncallback=?";
 		$("#checkTanggal").hide("slow");
-		$("#milihJam").show("slow");
+		//$("#milihJam").show("slow");
+		checkTimeline();
 	});
 	$("#forBack1").click(function(){
 		
 		$("#checkTanggal").show("slow");
-		$("#milihJam").hide("slow");
+		//$("#milihJam").hide("slow");
+		closeTimePanel();
+	});
+	$("#forBack2").click(function(){
+		
+		$("#checkTanggal").hide("slow");
+		//$("#milihJam").hide("slow");
+		checkTimeline();
+		$("#detailsContact").fadeOut("slow");
 	});
 	//kanggo ngecek wes di booking opo durung;
 	function checkingDateEngage(e){
@@ -239,7 +302,7 @@
 					$("#success").fadeIn("slow");
 					$("#fail").fadeOut("slow");
 					$("#notif").fadeOut("slow");
-					checkTimeline();
+					//checkTimeline();
 				}	
 			});
 					
@@ -247,16 +310,19 @@
 	function checkTimeline(){
 		var purpose = $('#purpose').val();
 		if (purpose == 'pagi') { 
+			$("#milihJam").show("slow");
 			$("#timePanel1").fadeIn("slow"); 
 			$("#timePanel2").fadeOut("slow");
 			$("#timePanel3").fadeOut("slow");
 		} 
 		else if (purpose == 'siang') { 
+			$("#milihJam").show("slow");
 			$("#timePanel1").fadeOut("slow"); 
 			$("#timePanel2").fadeIn("slow");
 			$("#timePanel3").fadeOut("slow");
 		} 
 		else{ 
+			$("#milihJam").show("slow");
 			$("#timePanel1").fadeOut("slow"); 
 			$("#timePanel2").fadeOut("slow");
 			$("#timePanel3").fadeIn("slow");
@@ -270,16 +336,19 @@
 
 	function closeTimePanel(a){
 		if (a == 'pagi') { 
+			$("#milihJam").hide("slow");
 			$("#timePanel1").fadeOut("slow"); 
 			$("#timePanel2").fadeOut("slow");
 			$("#timePanel3").fadeOut("slow");
 		} 
 		else if (a == 'siang') { 
+			$("#milihJam").hide("slow");
 			$("#timePanel1").fadeOut("slow"); 
 			$("#timePanel2").fadeOut("slow");
 			$("#timePanel3").fadeOut("slow");
 		} 
 		else{ 
+			$("#milihJam").hide("slow");
 			$("#timePanel1").fadeOut("slow"); 
 			$("#timePanel2").fadeOut("slow");
 			$("#timePanel3").fadeOut("slow");
