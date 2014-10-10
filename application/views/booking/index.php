@@ -150,6 +150,7 @@
 				</div>
 			</div>
 		</div>
+<!-- for contact input form-->
 	<div class="col-md-12 column" id="detailsContact" style="display:none;">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
@@ -167,26 +168,61 @@
 								<form id="profileForm">
 									<div class="form-group">
 										<label>First name</label>
-										<input type="text" class="form-control" name="firstname" />
+										<input id="firstname" type="text" class="form-control" name="firstname" />
 									</div>
 									<div class="form-group">
 										<label>Last name</label>
-										<input type="text" class="form-control" name="lastname" />
+										<input id="lastname" type="text" class="form-control" name="lastname" />
 									</div>
 									<div class="form-group">
 										<label>Email address</label>
-										<input type="text" class="form-control" name="email" />
+										<input id="emailAddress" type="text" class="form-control" name="email" />
 									</div>
 									<div class="form-group">
 										<label>Phone number</label>
-										<input type="text" class="form-control" name="phone" />
+										<input id="phoneNumb" type="text" class="form-control" name="phone" />
 									</div>
-									<button type="submit" value="submit" class="btn btn-lg btn-block btn-primary">Submit</button>
+									<button id="forFinishBook" type="button" value="submit" class="btn btn-lg btn-block btn-primary">Submit</button>
 								</form>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 column">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+<!--detail input value from user-->
+			<div class="col-md-12 column" id="detailContactView" style="display:none">
+				<div class="panel panel-primary">
+					<div class="panel-heading"><span class="glyphicon glyphicon-user"></span> Your contact details</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6 column">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Your contact details</div>
+									<div class="panel-body">
+										<h3>Mr dsaf asdf</h3>
+										<h5>asdfasfa.asd@asdf.asd</h5>
+										<h5>+44234234</h5>
+										Please email me with the latest restaurant promotions and deals from:<br>
+										<div class="checkbox">
+											<label>
+											<h4><input type="checkbox" value="">The River Cafe
+												</h4>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 column">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Select an option below:</div>
+									<div class="panel-body">
+										Standard À La Carte <button type="button" class="btn btn-sm btn-primary col-md-offset-6">Default button</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -240,7 +276,7 @@
     						notEmpty: {
     							message: 'The phone number is required'
     						},
-    						integer: {
+    						digits: {
     							message: 'The phone number is not valid'
     						}
     					}
@@ -257,7 +293,6 @@
 		});
 
 	$("#forBook").click(function(){
-		var validationURL = "http://labs.techarea.co.id/bookingserver/insertdata.php?jsoncallback=?";
 		$("#checkTanggal").hide("slow");
 		//$("#milihJam").show("slow");
 		checkTimeline();
@@ -275,10 +310,13 @@
 		checkTimeline();
 		$("#detailsContact").fadeOut("slow");
 	});
+	$("#forFinishBook").click(function(){
+		insertRequest();
+	})
 	//kanggo ngecek wes di booking opo durung;
 	function checkingDateEngage(e){
 		//kanggo alamate jupuk data
-		var validationURL = "http://labs.techarea.co.id/bookingserver/insertdata.php?jsoncallback=?";
+		var validationURL = "http://labs.techarea.co.id/bookingserver/readData.php?jsoncallback=?";
 		//kanggo argument seng di cek
 		//tanggal piro
 		var date = e;
@@ -302,11 +340,36 @@
 					$("#success").fadeIn("slow");
 					$("#fail").fadeOut("slow");
 					$("#notif").fadeOut("slow");
-					//checkTimeline();
 				}	
 			});
 					
 		}
+	//fungsi kanggo  reuquest
+	function insertRequest () {
+		var validationURL = "http://labs.techarea.co.id/bookingserver/insertData.php?jsoncallback=?";
+		//data to upload 
+		var purposeValue = $("#purpose").val();
+		var personCount = $("#sumPeople").val();
+		var dateValue = date;
+		//costumer data
+		var firstnameValue =  $("#firstname").val();
+		var lastnameValue = $("#lastname").val();
+		var emailValue = $("#emailAddress").val();
+		var phoneNumbValue = $("#phoneNumb").val();
+
+		console.log(dateValue + purposeValue + personCount + firstnameValue + lastnameValue + emailValue + phoneNumbValue);
+		$.getJSON( 
+			validationURL, {tanggal:dateValue ,jml_org:personCount, tujuan:purposeValue, namaAwal : firstnameValue, namaBlk: lastnameValue, email : emailValue, hp : phoneNumbValue
+			}).done(function(ServerResponse) {
+
+				if(ServerResponse.stats){
+					$("#detailContactView").show("slow");
+				}
+				else{
+					alert("something wrong");
+				}	
+			});
+	}
 	function checkTimeline(){
 		var purpose = $('#purpose').val();
 		if (purpose == 'pagi') { 
@@ -329,10 +392,7 @@
 		}
 
 	}
-		//fungsi kanggo  reuquest
-		function insertRequest (data) {
-			
-		}
+	
 
 	function closeTimePanel(a){
 		if (a == 'pagi') { 
@@ -358,14 +418,16 @@
 			
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 8!" +val+person);
+			var dateValue = date;
+			console.log(dateValue + "jam 8!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
 		$('#btnJam9').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 9!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 9!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -373,7 +435,8 @@
 		$('#btnJam10').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 10!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 10!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -381,7 +444,8 @@
 		$('#btnJam11').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 11!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 11!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -389,7 +453,8 @@
 		$('#btnJam12').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 12!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 12!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -397,7 +462,8 @@
 		$('#btnJam13').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 13!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 13!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -405,7 +471,8 @@
 		$('#btnJam14').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 14!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 14!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -414,7 +481,8 @@
 		$('#btnJam15').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 15!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 15!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -422,7 +490,8 @@
 		$('#btnJam16').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 16!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 16!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -430,49 +499,55 @@
 		$('#btnJam17').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 17!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 17!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
 		$('#btnJam18').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 18!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 18!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
 		$('#btnJam19').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 19!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 19!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
 		$('#btnJam20').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 20!" +val+person);
+			console.log(dateValue +  "jam 20!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
 		$('#btnJam21').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 21!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 21!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
 		$('#btnJam22').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 22!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 22!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
 		$('#btnJam23').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log( "jam 23!" +val+person);
+			var dateValue = date;
+			console.log(dateValue +  "jam 23!" +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
