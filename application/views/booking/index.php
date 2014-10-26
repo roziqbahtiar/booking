@@ -126,8 +126,8 @@
 					</div>
 					
 					<div class="panel-body" id="timePanel1" style="display:none;">
-						<button id="btnJam8"type="button" class="btn btn-md btn-primary" value="08">08.00</button>
-						<button id="btnJam9"type="button" class="btn btn-md btn-primary" value="09">09.00</button>
+						<button id="btnJam8"type="button" class="btn btn-md btn-primary" value="8">08.00</button>
+						<button id="btnJam9"type="button" class="btn btn-md btn-primary" value="9">09.00</button>
 						<button id="btnJam10"type="button" class="btn btn-md btn-primary" value="10">10.00</button>
 						<button id="btnJam11"type="button" class="btn btn-md btn-primary" value="11">11.00</button>
 						<button id="btnJam12"type="button" class="btn btn-md btn-primary" value="12">12.00</button>
@@ -238,6 +238,7 @@
 <script>
  //========================
 	var date;
+	var time;
 	$(document ).ready(function () {
 		 console.log( "ready!" );
 		 $('#profileForm').bootstrapValidator({
@@ -351,15 +352,16 @@
 		var purposeValue = $("#purpose").val();
 		var personCount = $("#sumPeople").val();
 		var dateValue = date;
+		var jam 	= time;
 		//costumer data
 		var firstnameValue =  $("#firstname").val();
 		var lastnameValue = $("#lastname").val();
 		var emailValue = $("#emailAddress").val();
 		var phoneNumbValue = $("#phoneNumb").val();
 
-		console.log(dateValue + purposeValue + personCount + firstnameValue + lastnameValue + emailValue + phoneNumbValue);
+		//console.log(jam+ dateValue + purposeValue + personCount + firstnameValue + lastnameValue + emailValue + phoneNumbValue);
 		$.getJSON( 
-			validationURL, {tanggal:dateValue ,jml_org:personCount, tujuan:purposeValue, namaAwal : firstnameValue, namaBlk: lastnameValue, email : emailValue, hp : phoneNumbValue
+			validationURL, {time :jam, tanggal:dateValue ,jml_org:personCount, tujuan:purposeValue, namaAwal : firstnameValue, namaBlk: lastnameValue, email : emailValue, hp : phoneNumbValue
 			}).done(function(ServerResponse) {
 
 				if(ServerResponse.stats){
@@ -419,7 +421,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue + "jam 8!" +val+person);
+			time = $('#btnJam8').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
@@ -427,7 +430,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 9!" +val+person);
+			time = $('#btnJam9').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -436,7 +440,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 10!" +val+person);
+			time = $('#btnJam10').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -445,7 +450,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 11!" +val+person);
+			time = $('#btnJam11').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -454,7 +460,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 12!" +val+person);
+			time = $('#btnJam12').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -463,7 +470,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 13!" +val+person);
+			time = $('#btnJam13').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -472,7 +480,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 14!" +val+person);
+			time = $('#btnJam14').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -482,7 +491,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 15!" +val+person);
+			time = $('#btnJam15').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -491,7 +501,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 16!" +val+person);
+			time = $('#btnJam16').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 
@@ -500,7 +511,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 17!" +val+person);
+			time = $('#btnJam17').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
@@ -508,7 +520,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 18!" +val+person);
+			time = $('#btnJam18').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
@@ -516,14 +529,16 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 19!" +val+person);
+			time = $('#btnJam19').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
 		$('#btnJam20').click(function  (argument) {
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
-			console.log(dateValue +  "jam 20!" +val+person);
+			time = $('#btnJam20').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
@@ -531,7 +546,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 21!" +val+person);
+			time = $('#btnJam21').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
@@ -539,7 +555,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 22!" +val+person);
+			time = $('#btnJam22').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
@@ -547,7 +564,8 @@
 			var val = $("#purpose").val();
 			var person = $("#sumPeople").val();
 			var dateValue = date;
-			console.log(dateValue +  "jam 23!" +val+person);
+			time = $('#btnJam23').val();
+			console.log(dateValue + "jam 8! "+time +val+person);
 			$("#detailsContact").fadeIn("slow");
 			closeTimePanel(val);
 		})
